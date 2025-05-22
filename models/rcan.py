@@ -77,9 +77,9 @@ class ResidualChannelAttentionBlock(nn.Module):
     def __init__(self, channel: int, reduction: int):
         super(ResidualChannelAttentionBlock, self).__init__()
         self.residual_channel_attention_block = nn.Sequential(
-            nn.Conv2d(channel, channel, (3, 3), (1, 1), (1, 1)),
+            nn.Conv2d(channel, channel, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
-            nn.Conv2d(channel, channel, (3, 3), (1, 1), (1, 1)),
+            nn.Conv2d(channel, channel, kernel_size=3, stride=1, padding=1),
             ChannelAttentionLayer(channel, reduction),
         )
 
@@ -100,7 +100,7 @@ class ResidualGroup(nn.Module):
 
         for _ in range(num_rcab):
             residual_group.append(ResidualChannelAttentionBlock(channel, reduction))
-        residual_group.append(nn.Conv2d(channel, channel, (3, 3), (1, 1), (1, 1)))
+        residual_group.append(nn.Conv2d(channel, channel, kernel_size=3, stride=1, padding=1))
 
         self.residual_group = nn.Sequential(*residual_group)
 
@@ -118,7 +118,7 @@ class UpsampleBlock(nn.Module):
     def __init__(self, channels: int, upscale_factor: int) -> None:
         super(UpsampleBlock, self).__init__()
         self.upsample_block = nn.Sequential(
-            nn.Conv2d(channels, channels * upscale_factor * upscale_factor, (3, 3), (1, 1), (1, 1)),
+            nn.Conv2d(channels, channels * upscale_factor * upscale_factor, kernel_size=3, stride=1, padding=1),
             nn.PixelShuffle(upscale_factor),
         )
 

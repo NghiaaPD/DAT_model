@@ -5,10 +5,15 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "datasets>=3.6.0",
+    "diffusers>=0.33.1",
     "ipykernel>=6.29.5",
     "matplotlib>=3.10.3",
+    "natsort>=8.4.0",
     "numpy>=2.2.6",
     "opencv-python>=4.11.0.86",
+    "super-image>=0.1.7",
+    "tensorboard>=2.19.0",
     "torch>=2.7.0",
     "torchvision>=0.22.0",
     "torchviz>=0.0.3",
