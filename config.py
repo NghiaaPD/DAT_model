@@ -13,17 +13,17 @@ device = torch.device("cuda", 0)
 # Turning on when the image size does not change during training can speed up training
 cudnn.benchmark = True
 # Image magnification factor
-upscale_factor = 4
+upscale_factor = 2
 # Current configuration parameter method
 mode = "test"
 # Experiment name, easy to save weights and log files
-exp_name = "SRCNN_x4"
+exp_name = "SRCNN_x2"
 
 if mode == "train":
     # Dataset
     train_image_dir = "/home/nghiapd/Code/DAT_model/T91"
-    test_lr_image_dir = "/home/nghiapd/Code/DAT_model/Set5/Set5/image_SRF_4"
-    test_hr_image_dir = "/home/nghiapd/Code/DAT_model/Set5/Set5/image_SRF_4"
+    test_lr_image_dir = "/home/nghiapd/Code/DAT_model/Set5/image_SRF_2"
+    test_hr_image_dir = "/home/nghiapd/Code/DAT_model/Set5/image_SRF_2"
 
     image_size = 32
     batch_size = 16
@@ -33,7 +33,7 @@ if mode == "train":
     resume = ""
 
     # Total number of epochs
-    epochs = 10000
+    epochs = 50800
 
     # SGD optimizer parameter
     model_lr = 1e-4
@@ -46,8 +46,8 @@ if mode == "train":
 
 if mode == "test":
     # Test data address
-    lr_dir = f"/home/nghiapd/Code/DAT_model/Set5/Set5/image_SRF_4"
+    lr_dir = f"/home/nghiapd/Code/DAT_model/Set5/image_SRF_2"
     sr_dir = f"/home/nghiapd/Code/DAT_model/results/test/{exp_name}"
-    hr_dir = f"/home/nghiapd/Code/DAT_model/Set5/Set5/image_SRF_4"
+    hr_dir = f"/home/nghiapd/Code/DAT_model/Set5/image_SRF_2"
 
-    model_path = "/home/nghiapd/Code/DAT_model/results/SRCNN_x4/best.pth.tar"
+    model_path = "/home/nghiapd/Code/DAT_model/results/SRCNN_x2/best.pth.tar"

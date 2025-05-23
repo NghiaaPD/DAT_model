@@ -4,7 +4,7 @@ import torch
 from torchvision import transforms
 
 # Đường dẫn tới folder chứa ảnh
-folder = '/home/nghiapd/Code/DAT_model/Set5/Set5/image_SRF_4'
+folder = '/home/nghiapd/Code/DAT_model/Set5/image_SRF_2'
 
 # Lấy danh sách file ảnh GR và LR
 gr_files = sorted([f for f in os.listdir(folder) if '_GR' in f])

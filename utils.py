@@ -88,11 +88,11 @@ class TestImageDataset(Dataset):
         lr_image = cv2.imread(self.lr_image_file_names[batch_index], cv2.IMREAD_UNCHANGED).astype(np.float32) / 255.
         hr_image = cv2.imread(self.hr_image_file_names[batch_index], cv2.IMREAD_UNCHANGED).astype(np.float32) / 255.
 
-        h, w = hr_image.shape[:2]
-        h = (h // self.upscale_factor) * self.upscale_factor
-        w = (w // self.upscale_factor) * self.upscale_factor
-        hr_image = hr_image[:h, :w]
-        lr_image = lr_image[:h, :w]
+        # h, w = hr_image.shape[:2]
+        # h = (h // self.upscale_factor) * self.upscale_factor
+        # w = (w // self.upscale_factor) * self.upscale_factor
+        # hr_image = hr_image[:h, :w]
+        # lr_image = lr_image[:h, :w]
 
         # Use high-resolution image to make low-resolution image
         lr_image = imgproc.image_resize(lr_image, 1 / self.upscale_factor)

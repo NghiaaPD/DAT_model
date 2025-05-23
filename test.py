@@ -97,25 +97,13 @@ def main() -> None:
         # Save image
         sr_y_image = imgproc.tensor2image(sr_y_tensor, False, True)
         sr_y_image = sr_y_image.astype(np.float32) / 255.0
-
-        # Resize Cb, Cr về cùng shape với Y
-        h, w = sr_y_image.shape[:2]
-        hr_cb_image = cv2.resize(hr_cb_image, (w, h), interpolation=cv2.INTER_CUBIC)
-        hr_cr_image = cv2.resize(hr_cr_image, (w, h), interpolation=cv2.INTER_CUBIC)
-
         sr_ycbcr_image = cv2.merge([sr_y_image, hr_cb_image, hr_cr_image])
         sr_image = imgproc.ycbcr2bgr(sr_ycbcr_image)
         cv2.imwrite(sr_image_path, sr_image * 255.0)
 
-        # Crop về cùng shape nhỏ nhất trước khi tính PSNR/SSIM
-        min_h = min(sr_y_tensor.shape[2], hr_y_tensor.shape[2])
-        min_w = min(sr_y_tensor.shape[3], hr_y_tensor.shape[3])
-        sr_y_tensor_cropped = sr_y_tensor[:, :, :min_h, :min_w]
-        hr_y_tensor_cropped = hr_y_tensor[:, :, :min_h, :min_w]
-
         # Cal IQA metrics
-        psnr_metrics += psnr(sr_y_tensor_cropped, hr_y_tensor_cropped).item()
-        ssim_metrics += ssim(sr_y_tensor_cropped, hr_y_tensor_cropped).item()
+        psnr_metrics += psnr(sr_y_tensor, hr_y_tensor).item()
+        ssim_metrics += ssim(sr_y_tensor, hr_y_tensor).item()
 
     # Calculate the average value of the sharpness evaluation index,
     # and all index range values are cut according to the following values
